@@ -1,0 +1,23 @@
+const usersRouter = require('express').Router()
+const User = require("../models/user")
+const bcrypt = require('bcrypt')
+
+usersRouter.post('/', async (req, res) => {
+    const {body} = req
+    const {username, name, password} = body
+    
+    const saltRound = 10;
+    const passwordHash = await bcrypt.hash(password, saltRound)
+
+    const user = new User({
+        username, 
+        name,
+        passwordHash
+    })
+
+    const savedUser = await user.save()
+
+    res.status(201).json(savedUser)
+})
+
+module.exports = usersRouter
