@@ -16,7 +16,7 @@ mongoose.connect(connectionString, {
         console.log("Database Conected")
     })
     .catch((e) => {
-        console.log("hola", e)
+        console.log(e)
     })
 
 
